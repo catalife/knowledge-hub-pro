@@ -1,7 +1,9 @@
+import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, BookOpen, Upload, BarChart3, Trash2, Plus } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const students = [
   { id: 1, name: "Priya Sharma", email: "priya@example.com", courses: 3, quizScore: "85%" },
@@ -28,8 +30,12 @@ const stats = [
 ];
 
 const Admin = () => {
+  const { isAdmin } = useAuth();
+
+  if (!isAdmin) return <Navigate to="/" replace />;
+
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-8">
       <div className="container">
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold">Admin Dashboard</h1>
