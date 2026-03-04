@@ -167,7 +167,7 @@ const Landing = () => {
             <a href="https://www.instagram.com/_catalife_organization_/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram</a>
             <a href="#" className="hover:text-foreground">Privacy</a>
             <a href="#" className="hover:text-foreground">Terms</a>
-            <a href="#" className="hover:text-foreground">Contact</a>
+            <Link to="/contact" className="hover:text-foreground">Contact</Link>
           </div>
         </div>
       </footer>
