@@ -14,6 +14,7 @@ import CourseDetail from "./pages/CourseDetail";
 import Quiz from "./pages/Quiz";
 import Forum from "./pages/Forum";
 import Admin from "./pages/Admin";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/quiz/:id" element={<Quiz />} />
             <Route path="/forum" element={<Forum />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
