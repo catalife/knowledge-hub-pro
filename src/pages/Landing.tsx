@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Users, Award, BookOpen, ArrowRight, FlaskConical, Stethoscope, FileText } from "lucide-react";
+import { GraduationCap, Users, Award, FlaskConical, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-illustration.jpg";
 
@@ -8,7 +8,7 @@ const features = [
   { icon: GraduationCap, title: "Expert-Led Training", desc: "Learn from seasoned professors and industry experts in clinical research & pharmacy" },
   { icon: FlaskConical, title: "Hands-On Practice", desc: "Practical experience with ICT tools, mind maps, and flipped classroom methodology" },
   { icon: Award, title: "Certified Programs", desc: "Advance Diplomas and PG Diplomas recognized by the pharmaceutical industry" },
-  { icon: Users, title: "Placement Assistance", desc: "Career guidance and job placement support for every graduate" },
+  { icon: Users, title: "Placement Assistance", desc: "100% placement assistance and career guidance for every graduate" },
 ];
 
 const distinctiveness = [
@@ -21,10 +21,11 @@ const distinctiveness = [
 ];
 
 const testimonials = [
-  "Be the pharmacist who not only fills prescriptions but also fills lives with well-being.",
-  "The art of pharmacy is not just dispensing pills but dispensing care and hope.",
-  "Every drug counts, every patient matters—your role is pivotal.",
-  "Excellence in pharmacy isn't about being perfect—it's about striving for patient-centered care every day.",
+  { quote: "Be the pharmacist who not only fills prescriptions but also fills lives with well-being.", image: "/testimonials/testimonial-1.jpg" },
+  { quote: "The art of pharmacy is not just dispensing pills but dispensing care and hope.", image: "/testimonials/testimonial-2.jpg" },
+  { quote: "Every drug counts, every patient matters—your role is pivotal.", image: "/testimonials/testimonial-3.jpg" },
+  { quote: "Excellence in pharmacy isn't about being perfect—it's about striving for patient-centered care every day.", image: "/testimonials/testimonial-4.jpg" },
+  { quote: "In pharmacy, your learning is the foundation; compassion is the bridge.", image: "/testimonials/testimonial-5.jpg" },
 ];
 
 const Landing = () => {
@@ -144,24 +145,31 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Student Testimonials */}
       <section className="border-t bg-muted/30 py-20">
         <div className="container">
           <div className="mb-12 text-center">
             <h2 className="mb-4 font-display text-3xl font-bold md:text-4xl">Student Testimonials</h2>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((quote, i) => (
-              <motion.blockquote
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="rounded-xl border bg-card p-6 shadow-card italic text-muted-foreground"
+                className="rounded-xl border bg-card shadow-card overflow-hidden"
               >
-                "{quote}"
-              </motion.blockquote>
+                <img
+                  src={t.image}
+                  alt={`Student testimonial ${i + 1}`}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-5">
+                  <p className="italic text-muted-foreground text-sm">"{t.quote}"</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>

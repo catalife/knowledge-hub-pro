@@ -5,23 +5,78 @@ import { Link } from "react-router-dom";
 
 const questions = [
   {
-    question: "What hook is used to manage state in a functional component?",
-    options: ["useEffect", "useState", "useRef", "useMemo"],
-    correct: 1,
+    question: "What does ICH-GCP stand for?",
+    options: [
+      "International Council for Harmonisation - Good Clinical Practice",
+      "Indian Clinical Health - General Clinical Protocol",
+      "International Committee of Health - Good Clinical Procedures",
+      "International Council for Health - General Clinical Practice"
+    ],
+    correct: 0,
   },
   {
-    question: "Which method is used to render a React component to the DOM?",
-    options: ["React.render()", "ReactDOM.createRoot()", "React.mount()", "ReactDOM.append()"],
-    correct: 1,
-  },
-  {
-    question: "What is JSX?",
-    options: ["A database query language", "A CSS framework", "A syntax extension for JavaScript", "A testing library"],
+    question: "Which phase of a clinical trial is the first to involve human subjects?",
+    options: ["Phase IV", "Phase II", "Phase I", "Phase III"],
     correct: 2,
   },
   {
-    question: "How do you pass data from parent to child component?",
-    options: ["Using state", "Using props", "Using context only", "Using localStorage"],
+    question: "What is the primary purpose of Pharmacovigilance?",
+    options: [
+      "Manufacturing drugs at scale",
+      "Detection, assessment, understanding and prevention of adverse drug reactions",
+      "Marketing pharmaceutical products",
+      "Conducting Phase I clinical trials"
+    ],
+    correct: 1,
+  },
+  {
+    question: "What document serves as the ethical foundation for clinical research involving human subjects?",
+    options: [
+      "The Nuremberg Code",
+      "The Declaration of Helsinki",
+      "The Belmont Report",
+      "All of the above"
+    ],
+    correct: 3,
+  },
+  {
+    question: "What does CRF stand for in clinical data management?",
+    options: [
+      "Clinical Research Foundation",
+      "Case Report Form",
+      "Clinical Review Format",
+      "Certified Research File"
+    ],
+    correct: 1,
+  },
+  {
+    question: "What is an Adverse Event (AE) in clinical research?",
+    options: [
+      "A positive outcome of a clinical trial",
+      "Any untoward medical occurrence in a patient administered a pharmaceutical product",
+      "A planned medical procedure during a trial",
+      "A regulatory approval milestone"
+    ],
+    correct: 1,
+  },
+  {
+    question: "Which regulatory body oversees drug approvals in India?",
+    options: [
+      "FDA",
+      "EMA",
+      "CDSCO",
+      "TGA"
+    ],
+    correct: 2,
+  },
+  {
+    question: "What is the purpose of a Clinical Study Report (CSR) in medical writing?",
+    options: [
+      "To advertise a new drug to physicians",
+      "To provide a comprehensive description of a clinical trial's methods and results",
+      "To train new clinical research associates",
+      "To file a patent for a drug compound"
+    ],
     correct: 1,
   },
 ];
