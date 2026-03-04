@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const questions = [
   {
@@ -31,22 +33,12 @@ const questions = [
   },
   {
     question: "What document serves as the ethical foundation for clinical research involving human subjects?",
-    options: [
-      "The Nuremberg Code",
-      "The Declaration of Helsinki",
-      "The Belmont Report",
-      "All of the above"
-    ],
+    options: ["The Nuremberg Code", "The Declaration of Helsinki", "The Belmont Report", "All of the above"],
     correct: 3,
   },
   {
     question: "What does CRF stand for in clinical data management?",
-    options: [
-      "Clinical Research Foundation",
-      "Case Report Form",
-      "Clinical Review Format",
-      "Certified Research File"
-    ],
+    options: ["Clinical Research Foundation", "Case Report Form", "Clinical Review Format", "Certified Research File"],
     correct: 1,
   },
   {
@@ -61,12 +53,7 @@ const questions = [
   },
   {
     question: "Which regulatory body oversees drug approvals in India?",
-    options: [
-      "FDA",
-      "EMA",
-      "CDSCO",
-      "TGA"
-    ],
+    options: ["FDA", "EMA", "CDSCO", "TGA"],
     correct: 2,
   },
   {
@@ -82,10 +69,13 @@ const questions = [
 ];
 
 const Quiz = () => {
+  const { isLoggedIn } = useAuth();
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
   const [submitted, setSubmitted] = useState(false);
+
+  if (!isLoggedIn) return <Navigate to="/login" replace />;
 
   const isFinished = answers.length === questions.length;
   const score = answers.filter((a, i) => a === questions[i].correct).length;
@@ -95,7 +85,6 @@ const Quiz = () => {
     const newAnswers = [...answers, selected];
     setAnswers(newAnswers);
     setSelected(null);
-
     if (current < questions.length - 1) {
       setCurrent(current + 1);
     } else {
@@ -106,7 +95,7 @@ const Quiz = () => {
   if (submitted && isFinished) {
     const passed = score >= Math.ceil(questions.length * 0.7);
     return (
-      <div className="flex min-h-screen items-center justify-center py-8">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-primary/5 via-background to-secondary/5 py-8">
         <div className="w-full max-w-md text-center">
           <div className={`mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full ${passed ? "bg-success/10" : "bg-destructive/10"}`}>
             {passed ? <CheckCircle className="h-10 w-10 text-success" /> : <XCircle className="h-10 w-10 text-destructive" />}
@@ -116,12 +105,8 @@ const Quiz = () => {
             You scored {score} out of {questions.length} ({Math.round((score / questions.length) * 100)}%)
           </p>
           <div className="flex justify-center gap-3">
-            <Link to="/dashboard">
-              <Button variant="outline">Back to Dashboard</Button>
-            </Link>
-            <Button onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setSubmitted(false); }}>
-              Retry Quiz
-            </Button>
+            <Link to="/dashboard"><Button variant="outline">Back to Dashboard</Button></Link>
+            <Button onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setSubmitted(false); }}>Retry Quiz</Button>
           </div>
         </div>
       </div>
@@ -131,7 +116,7 @@ const Quiz = () => {
   const q = questions[current];
 
   return (
-    <div className="flex min-h-screen items-center justify-center py-8">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-primary/5 via-background to-secondary/5 py-8">
       <div className="w-full max-w-lg">
         <div className="mb-6">
           <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
@@ -139,13 +124,9 @@ const Quiz = () => {
             <span>{Math.round(((current + 1) / questions.length) * 100)}%</span>
           </div>
           <div className="h-2 rounded-full bg-muted">
-            <div
-              className="h-2 rounded-full bg-primary transition-all"
-              style={{ width: `${((current + 1) / questions.length) * 100}%` }}
-            />
+            <div className="h-2 rounded-full bg-primary transition-all" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
           </div>
         </div>
-
         <div className="rounded-xl border bg-card p-6 shadow-card">
           <h2 className="mb-6 font-display text-xl font-semibold">{q.question}</h2>
           <div className="space-y-3">
@@ -154,9 +135,7 @@ const Quiz = () => {
                 key={i}
                 onClick={() => setSelected(i)}
                 className={`w-full rounded-lg border p-4 text-left text-sm font-medium transition-colors ${
-                  selected === i
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border hover:border-primary/30 hover:bg-muted/50"
+                  selected === i ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/30 hover:bg-muted/50"
                 }`}
               >
                 <span className="mr-3 inline-flex h-6 w-6 items-center justify-center rounded-full border text-xs">
@@ -166,11 +145,7 @@ const Quiz = () => {
               </button>
             ))}
           </div>
-          <Button
-            className="mt-6 w-full gap-2 font-semibold"
-            onClick={handleNext}
-            disabled={selected === null}
-          >
+          <Button className="mt-6 w-full gap-2 font-semibold" onClick={handleNext} disabled={selected === null}>
             {current < questions.length - 1 ? "Next Question" : "Submit Quiz"} <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

@@ -1,14 +1,22 @@
-import { Link, useLocation } from "react-router-dom";
-import { Stethoscope, Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Stethoscope, Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, isAdmin, isLoggedIn, logout } = useAuth();
   const isAuth = location.pathname === "/login" || location.pathname === "/signup";
 
   if (isAuth) return null;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
@@ -21,27 +29,44 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden items-center gap-6 md:flex">
-          <Link to="/dashboard" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Dashboard
-          </Link>
+          {isLoggedIn && (
+            <Link to="/dashboard" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+              Dashboard
+            </Link>
+          )}
           <Link to="/courses" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Courses
           </Link>
-          <Link to="/forum" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Forum
-          </Link>
-          <Link to="/admin" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Admin
-          </Link>
+          {isLoggedIn && (
+            <Link to="/forum" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+              Forum
+            </Link>
+          )}
+          {isAdmin && (
+            <Link to="/admin" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+              Admin
+            </Link>
+          )}
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Log in</Button>
-          </Link>
-          <Link to="/signup">
-            <Button size="sm">Get Started</Button>
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <span className="text-sm text-muted-foreground">Hi, {user?.name}</span>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-1">
+                <LogOut className="h-4 w-4" /> Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="ghost" size="sm">Log in</Button>
+              </Link>
+              <Link to="/signup">
+                <Button size="sm">Get Started</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -52,13 +77,27 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="border-t bg-card p-4 md:hidden">
           <div className="flex flex-col gap-3">
-            <Link to="/dashboard" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Dashboard</Link>
+            {isLoggedIn && (
+              <Link to="/dashboard" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Dashboard</Link>
+            )}
             <Link to="/courses" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Courses</Link>
-            <Link to="/forum" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Forum</Link>
-            <Link to="/admin" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Admin</Link>
+            {isLoggedIn && (
+              <Link to="/forum" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Forum</Link>
+            )}
+            {isAdmin && (
+              <Link to="/admin" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Admin</Link>
+            )}
             <div className="flex gap-2 pt-2">
-              <Link to="/login"><Button variant="ghost" size="sm">Log in</Button></Link>
-              <Link to="/signup"><Button size="sm">Get Started</Button></Link>
+              {isLoggedIn ? (
+                <Button variant="ghost" size="sm" onClick={() => { handleLogout(); setMobileOpen(false); }} className="gap-1">
+                  <LogOut className="h-4 w-4" /> Logout
+                </Button>
+              ) : (
+                <>
+                  <Link to="/login"><Button variant="ghost" size="sm">Log in</Button></Link>
+                  <Link to="/signup"><Button size="sm">Get Started</Button></Link>
+                </>
+              )}
             </div>
           </div>
         </div>

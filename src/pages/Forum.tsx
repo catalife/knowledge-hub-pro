@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, ThumbsUp, Clock } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const initialPosts = [
   { id: 1, author: "Priya Sharma", avatar: "PS", title: "How to prepare for ICH-GCP certification?", body: "I'm planning to take the ICH-GCP exam next month. What study materials and strategies do you recommend?", time: "2 hours ago", likes: 12, replies: 5, category: "Clinical Research" },
@@ -13,15 +15,19 @@ const initialPosts = [
 ];
 
 const Forum = () => {
+  const { isLoggedIn, user } = useAuth();
   const [posts, setPosts] = useState(initialPosts);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  if (!isLoggedIn) return <Navigate to="/login" replace />;
+
   const handlePost = () => {
     if (!title.trim() || !body.trim()) return;
+    const initials = user?.name ? user.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) : "YO";
     setPosts([{
-      id: Date.now(), author: "You", avatar: "YO", title, body,
+      id: Date.now(), author: user?.name || "You", avatar: initials, title, body,
       time: "Just now", likes: 0, replies: 0, category: "General"
     }, ...posts]);
     setTitle("");
@@ -30,7 +36,7 @@ const Forum = () => {
   };
 
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 via-background to-secondary/5 py-8">
       <div className="container max-w-3xl">
         <div className="mb-8 flex items-center justify-between">
           <div>

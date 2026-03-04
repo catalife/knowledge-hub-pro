@@ -1,7 +1,8 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, CheckCircle, Lock, ArrowRight, Clock, Users, Award } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const coursesData: Record<string, {
   title: string;
@@ -26,7 +27,7 @@ const coursesData: Record<string, {
   },
   "2": {
     title: "PG Diploma in Clinical Research",
-    description: "PG Diploma Course in Clinical Research is an extensive 6 months course. Covers advanced clinical trial management, biostatistics, regulatory affairs, and research methodology. Learn from corporate experts with 100% placement assistance.",
+    description: "PG Diploma Course in Clinical Research is an extensive 6 months course. Covers advanced clinical trial management, biostatistics, regulatory affairs, and research methodology.",
     duration: "6 months",
     highlights: ["100% Placement Assistance", "Affordable course fee", "Learn from Corporate Expert"],
     lessons: [
@@ -41,7 +42,7 @@ const coursesData: Record<string, {
   },
   "3": {
     title: "Advance Diploma in Medical Writing",
-    description: "Advance Diploma in Medical Writing is a short 3 months course. Learn regulatory writing, clinical study reports, scientific publications, and medical communication. Affordable course fees with 100% placement assistance.",
+    description: "Advance Diploma in Medical Writing is a short 3 months course. Learn regulatory writing, clinical study reports, scientific publications, and medical communication.",
     duration: "3 months",
     highlights: ["Affordable course fees", "Learn from Expert", "100% Placement Assistance"],
     lessons: [
@@ -54,7 +55,7 @@ const coursesData: Record<string, {
   },
   "4": {
     title: "Advance Diploma in Clinical Data Management",
-    description: "Advance Diploma in Clinical Data Management is a short 3 months course. Covers data collection, validation, database design, and CDISC standards in clinical trials. Affordable course fees with 100% placement assistance.",
+    description: "Advance Diploma in Clinical Data Management is a short 3 months course. Covers data collection, validation, database design, and CDISC standards in clinical trials.",
     duration: "3 months",
     highlights: ["Affordable course fees", "Learn from Expert", "100% Placement Assistance"],
     lessons: [
@@ -67,7 +68,7 @@ const coursesData: Record<string, {
   },
   "5": {
     title: "Advance Diploma in Pharmacovigilance",
-    description: "Advance Diploma in Pharmacovigilance is a short 3 months course. Learn drug safety, adverse event reporting, signal detection, and risk management. Affordable course fees with 100% placement assistance.",
+    description: "Advance Diploma in Pharmacovigilance is a short 3 months course. Learn drug safety, adverse event reporting, signal detection, and risk management.",
     duration: "3 months",
     highlights: ["Affordable course fees", "Learn from Expert", "100% Placement Assistance"],
     lessons: [
@@ -106,16 +107,18 @@ const coursesData: Record<string, {
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const { isLoggedIn } = useAuth();
   const course = coursesData[id || "1"] || coursesData["1"];
   const [activeLesson, setActiveLesson] = useState(
     course.lessons.findIndex(l => !l.completed && !l.locked) + 1 || 1
   );
 
+  if (!isLoggedIn) return <Navigate to="/login" replace />;
+
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 via-background to-secondary/5 py-8">
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-3">
-          {/* Video Player */}
           <div className="lg:col-span-2">
             <div className="mb-4 aspect-video rounded-xl bg-primary/5 border flex items-center justify-center">
               <div className="text-center">
@@ -148,7 +151,6 @@ const CourseDetail = () => {
             </Link>
           </div>
 
-          {/* Lesson List */}
           <div className="rounded-xl border bg-card p-4 shadow-card h-fit">
             <h2 className="mb-4 font-display text-lg font-semibold">Course Content</h2>
             <div className="space-y-1">
