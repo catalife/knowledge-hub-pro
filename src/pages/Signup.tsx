@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BookOpen } from "lucide-react";
+import { Stethoscope } from "lucide-react";
 
 const Signup = () => (
   <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
@@ -10,12 +10,12 @@ const Signup = () => (
       <div className="text-center">
         <Link to="/" className="mx-auto mb-4 flex items-center justify-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
+            <Stethoscope className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="font-display text-2xl font-bold">LearnHub</span>
+          <span className="font-display text-2xl font-bold">CataLife</span>
         </Link>
         <h1 className="font-display text-2xl font-bold">Create your account</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Start your learning journey today</p>
+        <p className="mt-1 text-sm text-muted-foreground">Start your clinical research journey today</p>
       </div>
 
       <div className="rounded-xl border bg-card p-6 shadow-card">

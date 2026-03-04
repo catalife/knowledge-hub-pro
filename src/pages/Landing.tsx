@@ -21,11 +21,11 @@ const distinctiveness = [
 ];
 
 const testimonials = [
-  { quote: "Be the pharmacist who not only fills prescriptions but also fills lives with well-being.", image: "/testimonials/testimonial-1.jpg" },
-  { quote: "The art of pharmacy is not just dispensing pills but dispensing care and hope.", image: "/testimonials/testimonial-2.jpg" },
-  { quote: "Every drug counts, every patient matters—your role is pivotal.", image: "/testimonials/testimonial-3.jpg" },
-  { quote: "Excellence in pharmacy isn't about being perfect—it's about striving for patient-centered care every day.", image: "/testimonials/testimonial-4.jpg" },
-  { quote: "In pharmacy, your learning is the foundation; compassion is the bridge.", image: "/testimonials/testimonial-5.jpg" },
+  { name: "Rajesh K.", quote: "CataLife transformed my career in clinical research. The hands-on training and placement support were outstanding.", image: "/testimonials/testimonial-1.jpg" },
+  { name: "Ananya S.", quote: "I got placed within 2 months of completing my Advance Diploma. The curriculum is truly industry-aligned.", image: "/testimonials/testimonial-2.jpg" },
+  { name: "Vikram P.", quote: "The pharmacovigilance course gave me practical knowledge that I use every day at my CRO job.", image: "/testimonials/testimonial-3.jpg" },
+  { name: "Meera D.", quote: "Best investment in my pharmacy career. The faculty are experienced professionals from the industry.", image: "/testimonials/testimonial-4.jpg" },
+  { name: "Sanjay M.", quote: "The medical writing program helped me transition from retail pharmacy to a rewarding career in regulatory affairs.", image: "/testimonials/testimonial-5.jpg" },
 ];
 
 const Landing = () => {
@@ -168,6 +168,7 @@ const Landing = () => {
                 />
                 <div className="p-5">
                   <p className="italic text-muted-foreground text-sm">"{t.quote}"</p>
+                  <p className="mt-2 text-sm font-semibold">— {t.name}</p>
                 </div>
               </motion.div>
             ))}
