@@ -37,6 +37,9 @@ const Navbar = () => {
           <Link to="/courses" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Courses
           </Link>
+          <Link to="/contact" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+            Contact
+          </Link>
           {isLoggedIn && (
             <Link to="/forum" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
               Forum
@@ -81,6 +84,7 @@ const Navbar = () => {
               <Link to="/dashboard" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Dashboard</Link>
             )}
             <Link to="/courses" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Courses</Link>
+            <Link to="/contact" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Contact</Link>
             {isLoggedIn && (
               <Link to="/forum" className="text-sm font-medium" onClick={() => setMobileOpen(false)}>Forum</Link>
             )}
